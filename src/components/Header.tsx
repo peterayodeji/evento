@@ -20,7 +20,6 @@ const routes = [
 
 function Header() {
   const activePathname = usePathname();
-  console.log(activePathname);
 
   return (
     <header className="flex items-center justify-between border-b h-14 px-3 sm:px-9  border-white/10">
