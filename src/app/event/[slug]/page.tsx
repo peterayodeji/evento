@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getEvent } from '@/lib/utils';
+import { getEvent } from '@/lib/server-utils';
 
 import H1 from '@/components/h1';
 import Image from 'next/image';
@@ -19,7 +19,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-async function EventPage({ params }: Props) {
+export async function generateStaticParams() {
+  // top 100 most popular events
+  return [
+    {
+      slug: 'comedy-extravaganza',
+    },
+    {
+      slug: 'dj-practice-session',
+    },
+  ];
+}
+
+export default async function EventPage({ params }: Props) {
   const slug = params.slug;
   const event = await getEvent(slug);
 
@@ -83,8 +95,6 @@ async function EventPage({ params }: Props) {
     </main>
   );
 }
-
-export default EventPage;
 
 function Section({ children }: { children: React.ReactNode }) {
   return <section className="mb-12">{children}</section>;
